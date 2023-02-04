@@ -34,6 +34,7 @@ function App() {
                         <details key={item.id}>
                             <summary><b>{item.title}</b></summary>
                             <p>{item.body}</p>
+                            <img src={`https://via.placeholder.com/512/336699?text=`+item.title} alt={item.title} />
                         </details>
                     ))
                 )}
