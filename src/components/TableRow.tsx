@@ -38,16 +38,29 @@ function TableRow(props: IUnit) {
                 </Typography>
             </Box>
             {detailsVisible ? (
-                <div>
+                <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                }}>
                     <Typography
                         variant="body2"
-                        sx={{p: 1}}
+                        sx={{px: 4}}
                     >
                         {props.body}
                     </Typography>
+                    <Box
+                        component="img"
+                        sx={{
+                            height: 512,
+                            width: 512,
+                            pt: 1,
+                        }}
+                        alt={props.title}
+                        src={imgSrc(props.title)}
+                    />
 
-                    <img src={imgSrc(props.title)} alt={props.title} />
-                </div>
+                </Box>
             ) : null}
         </>
     )
