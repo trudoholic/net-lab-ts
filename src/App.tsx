@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import { IUnit, getUnits } from './api'
-import { AxiosError } from "axios"
+import { IUnit, getUnits, logError } from './api'
+
+import TableHeader from "./components/TableHeader"
+import TableRow from "./components/TableRow"
 
 function App() {
     const [units, setUnits] = useState<IUnit[]>([])
@@ -14,31 +16,20 @@ function App() {
                 console.log(data)
                 setUnits(data)
             } catch (error) {
-                const err = error as AxiosError
-                console.log(err.message)
+                logError(error)
                 setIsError(true)
             }
         })()
     }, [])
 
-    const handleClick = async () => {}
-
     return (
         <div className="App">
-            <button onClick={handleClick}>Add Unit</button>
-            <div>
-                {isError ? (
-                    <div>Error getting data!</div>
-                ) : (
-                    units.map(item => (
-                        <details key={item.id}>
-                            <summary><b>{item.title}</b></summary>
-                            <p>{item.body}</p>
-                            <img src={`https://via.placeholder.com/512/336699?text=`+item.title} alt={item.title} />
-                        </details>
-                    ))
-                )}
-            </div>
+            <TableHeader />
+            {isError ? (
+                <div>Error getting data!</div>
+            ) : (
+                units.map(item => <TableRow key={item.id} {...item} />)
+            )}
         </div>
     )
 }
