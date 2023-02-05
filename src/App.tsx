@@ -25,7 +25,7 @@ function App() {
 
     return (
         <div className="App">
-            <TableHeader />
+            <TableHeader setUnits={setUnits} />
             {isError ? (
                 <div>Error getting data!</div>
             ) : (
