@@ -1,16 +1,18 @@
-import {IUnit, createRandomUnit} from '../api'
+import {IUnit, createUnit} from '../api'
 import Button from "@mui/material/Button"
 import Box  from "@mui/material/Box"
 
 type Props = {
+    units: IUnit[]
     setUnits: (arg: (prev: IUnit[]) => IUnit[]) => void
 }
 
-function TableHeader({ setUnits }: Props) {
+function TableHeader({ units, setUnits }: Props) {
     const handleAddUnit = async () => {
-        const newUnit = await createRandomUnit()
-        console.log('Add Unit', newUnit)
-        setUnits(prev => ([newUnit, ...prev]))
+        const randomUnit = {...units[Math.floor(Math.random() * units.length)]}
+        randomUnit.id = units.length + 1
+        await createUnit(randomUnit)
+        setUnits(prev => ([randomUnit, ...prev]))
     }
 
     return (

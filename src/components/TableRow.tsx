@@ -8,14 +8,10 @@ import Button from "@mui/material/Button";
 function TableRow(props: IUnit) {
     const [detailsVisible, setDetailsVisible] = useState<boolean>(false)
     const [done, toggle] = useState<boolean>(false)
-    const imgSize = 50
+    const thumbnailSize = 50
 
     const handleClick = () => {
         setDetailsVisible(prevState => !prevState)
-    }
-
-    function imgSrc (size:number, text: string) {
-        return `https://via.placeholder.com/${size}/336699?text=${text}`
     }
 
     return (
@@ -43,23 +39,25 @@ function TableRow(props: IUnit) {
                     {props.title}
                 </Typography>
                 <Typography
+                    align="right"
                     color={done ? "primary.light" : "common.white"}
                     variant="body1"
                     sx={{
                         flex: 1,
                     }}
                 >
-                    {10000..toLocaleString()}
+                    {props.price.toLocaleString()}
                 </Typography>
                 <Box
                     component="img"
                     sx={{
-                        height: imgSize,
-                        width: imgSize,
-                        p: 1,
+                        height: thumbnailSize,
+                        width: thumbnailSize,
+                        px: 8,
+                        py: 1,
                     }}
                     alt={props.title}
-                    src={imgSrc(imgSize, 'img' + props.id)}
+                    src={props.thumbnail}
                 />
                 <Button
                     variant="contained"
@@ -82,17 +80,15 @@ function TableRow(props: IUnit) {
                         variant="body2"
                         sx={{px: 4}}
                     >
-                        {props.body}
+                        {props.description}
                     </Typography>
                     <Box
                         component="img"
                         sx={{
-                            height: 512,
-                            width: 512,
                             pt: 1,
                         }}
                         alt={props.title}
-                        src={imgSrc(512, props.title)}
+                        src={props.images[0]}
                     />
 
                 </Box>

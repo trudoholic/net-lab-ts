@@ -14,7 +14,7 @@ function App() {
         (async () => {
             try {
                 const data = await getUnits()
-                console.log(data)
+                // console.log(data)
                 setUnits(data)
             } catch (error) {
                 logError(error)
@@ -25,7 +25,7 @@ function App() {
 
     return (
         <div className="App">
-            <TableHeader setUnits={setUnits} />
+            <TableHeader units={units} setUnits={setUnits} />
             {isError ? (
                 <div>Error getting data!</div>
             ) : (

@@ -1,45 +1,37 @@
 import axios, {AxiosError} from 'axios'
 
-const testId = 1
-
 export const client = axios.create({
-    baseURL: "https://jsonplaceholder.typicode.com/"
+    baseURL: "https://dummyjson.com/products/"
 })
 
 export interface IUnit {
-    userId: number
     id: number
     title: string
-    body: string
+    description: string
+    price: number
+    discountPercentage: number
+    rating: number
+    stock: number
+    brand: string
+    category: string
+    thumbnail: string
+    images: string[]
+}
+
+export interface IData {
+    limit: number
+    products: IUnit[]
+    skip: number
+    total: number
 }
 
 export const getUnits = async (): Promise<IUnit[]> => {
-    const { data } = await client.get<IUnit[]>(`posts?userId=${testId}`)
-    return data
+    const { data } = await client.get<IData>('')
+    return data.products
 }
 
-export const createUnit = async (userId: number, title: string, body: string): Promise<IUnit> => {
-    const { data } = await client.post('posts', { userId, title, body })
-    return data
-}
-
-function randomString(length: number) {
-    const characters = ' abcdefghijklmnopqrstuvwxyz'
-    const charactersLength = characters.length
-    let result = ''
-    let counter = length
-    while (counter --> 0) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength))
-    }
-    return result
-}
-
-export const createRandomUnit = async (): Promise<IUnit> => {
-    const { data } = await client.post('posts', {
-        userId: testId,
-        title: randomString(10),
-        body: randomString(100),
-    })
+export const createUnit = async (unit: IUnit): Promise<IUnit> => {
+    const { data } = await client.post('', { ...unit })
     return data
 }
 
