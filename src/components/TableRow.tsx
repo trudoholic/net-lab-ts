@@ -3,6 +3,7 @@ import { IUnit } from '../api'
 
 function TableRow(props: IUnit) {
     const [detailsVisible, setDetailsVisible] = useState<boolean>(false)
+    const [done, toggle] = useState<boolean>(false)
 
     const handleClick = () => {
         setDetailsVisible(prevState => !prevState)
@@ -13,16 +14,24 @@ function TableRow(props: IUnit) {
     }
 
     return (
-        <div onClick={handleClick}>
-            <b>{props.title}</b>
-
+        <>
+            <div>
+                <input
+                    type="checkbox"
+                    checked={done}
+                    onChange={(e) => toggle(prevState => !prevState)}
+                />
+                <div onClick={handleClick}>
+                    <b>{props.title}</b>
+                </div>
+            </div>
             {detailsVisible ? (
                 <div>
                     <p>{props.body}</p>
                     <img src={imgSrc(props.title)} alt={props.title} />
                 </div>
             ) : null}
-        </div>
+        </>
     )
 }
 
