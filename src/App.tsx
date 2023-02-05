@@ -4,6 +4,7 @@ import { IUnit, getUnits, logError } from './api'
 
 import TableHeader from "./components/TableHeader"
 import TableRow from "./components/TableRow"
+import TableFooter from "./components/TableFooter";
 
 function App() {
     const [units, setUnits] = useState<IUnit[]>([])
@@ -30,6 +31,7 @@ function App() {
             ) : (
                 units.map(item => <TableRow key={item.id} {...item} />)
             )}
+            <TableFooter total={units.length}/>
         </div>
     )
 }

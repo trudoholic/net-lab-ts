@@ -1,5 +1,8 @@
 import {useState} from "react"
 import { IUnit } from '../api'
+import Box  from "@mui/material/Box"
+import Checkbox  from "@mui/material/Checkbox"
+import Typography from "@mui/material/Typography";
 
 function TableRow(props: IUnit) {
     const [detailsVisible, setDetailsVisible] = useState<boolean>(false)
@@ -15,19 +18,34 @@ function TableRow(props: IUnit) {
 
     return (
         <>
-            <div>
-                <input
-                    type="checkbox"
+            <Box sx={{
+                display: 'flex',
+                alignItems: 'center',
+                p: 1,
+            }}>
+                <Checkbox
                     checked={done}
                     onChange={(e) => toggle(prevState => !prevState)}
+                    sx={{color: "lightcyan"}}
                 />
-                <div onClick={handleClick}>
-                    <b>{props.title}</b>
-                </div>
-            </div>
+
+                <Typography
+                    onClick={handleClick}
+                    color={done ? "primary.light" : "common.white"}
+                    variant="body1"
+                >
+                    {props.title}
+                </Typography>
+            </Box>
             {detailsVisible ? (
                 <div>
-                    <p>{props.body}</p>
+                    <Typography
+                        variant="body2"
+                        sx={{p: 1}}
+                    >
+                        {props.body}
+                    </Typography>
+
                     <img src={imgSrc(props.title)} alt={props.title} />
                 </div>
             ) : null}
