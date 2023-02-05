@@ -16,7 +16,7 @@ function TableHeader() {
                 color="primary"
                 onClick={handleAddUnit}
             >
-                Add Unit
+                Добавить
             </Button>
 
         </Box>

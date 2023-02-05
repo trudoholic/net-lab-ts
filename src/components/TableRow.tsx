@@ -3,17 +3,19 @@ import { IUnit } from '../api'
 import Box  from "@mui/material/Box"
 import Checkbox  from "@mui/material/Checkbox"
 import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 
 function TableRow(props: IUnit) {
     const [detailsVisible, setDetailsVisible] = useState<boolean>(false)
     const [done, toggle] = useState<boolean>(false)
+    const imgSize = 50
 
     const handleClick = () => {
         setDetailsVisible(prevState => !prevState)
     }
 
-    function imgSrc (t: string) {
-        return `https://via.placeholder.com/512/336699?text=` + t
+    function imgSrc (size:number, text: string) {
+        return `https://via.placeholder.com/${size}/336699?text=${text}`
     }
 
     return (
@@ -21,21 +23,54 @@ function TableRow(props: IUnit) {
             <Box sx={{
                 display: 'flex',
                 alignItems: 'center',
-                p: 1,
             }}>
                 <Checkbox
                     checked={done}
                     onChange={(e) => toggle(prevState => !prevState)}
-                    sx={{color: "lightcyan"}}
+                    sx={{
+                        color: "lightcyan",
+                        flex: 1,
+                    }}
                 />
-
                 <Typography
                     onClick={handleClick}
                     color={done ? "primary.light" : "common.white"}
                     variant="body1"
+                    sx={{
+                        flex: 10,
+                    }}
                 >
                     {props.title}
                 </Typography>
+                <Typography
+                    color={done ? "primary.light" : "common.white"}
+                    variant="body1"
+                    sx={{
+                        flex: 1,
+                    }}
+                >
+                    {10000..toLocaleString()}
+                </Typography>
+                <Box
+                    component="img"
+                    sx={{
+                        height: imgSize,
+                        width: imgSize,
+                        p: 1,
+                    }}
+                    alt={props.title}
+                    src={imgSrc(imgSize, 'img' + props.id)}
+                />
+                <Button
+                    variant="contained"
+                    color="primary"
+                    // onClick={handleClick}
+                    sx={{
+                        mr: 2,
+                    }}
+                >
+                    Купить
+                </Button>
             </Box>
             {detailsVisible ? (
                 <Box sx={{
@@ -57,7 +92,7 @@ function TableRow(props: IUnit) {
                             pt: 1,
                         }}
                         alt={props.title}
-                        src={imgSrc(props.title)}
+                        src={imgSrc(512, props.title)}
                     />
 
                 </Box>
