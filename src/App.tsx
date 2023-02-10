@@ -11,16 +11,21 @@ function App() {
     const [isError, setIsError] = useState<boolean>(false)
 
     useEffect(() => {
+        const abortController = new AbortController();
+
         (async () => {
             try {
-                const data = await getUnits()
-                // console.log(data)
+                const data = await getUnits(abortController.signal)
+                console.log(data)
+                setIsError(false)
                 setUnits(data)
             } catch (error) {
                 logError(error)
                 setIsError(true)
             }
         })()
+
+        return () => abortController.abort()
     }, [])
 
     return (

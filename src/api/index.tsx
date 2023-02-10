@@ -25,8 +25,8 @@ export interface IData {
     total: number
 }
 
-export const getUnits = async (): Promise<IUnit[]> => {
-    const { data } = await client.get<IData>('')
+export const getUnits = async (signal: AbortSignal): Promise<IUnit[]> => {
+    const { data } = await client.get<IData>('', {signal})
     return data.products
 }
 
@@ -37,6 +37,13 @@ export const createUnit = async (unit: IUnit): Promise<IUnit> => {
 
 export function logError (error: unknown) {
     const err = error as AxiosError
-    console.log(err.message)
+
+    // if (axios.isCancel(err)) {
+    //     console.log('Request canceled', err.message);
+    // } else {
+    //     console.log((err as AxiosError).message)
+    // }
+
+    console.log(err.name, err.message)
     return err.message
 }
